@@ -1,4 +1,7 @@
-import 'package:english_words/english_words.dart';
+import 'package:coctail_book/router.dart';
+import 'package:coctail_book/state/my_app_state.dart';
+import 'package:coctail_book/widgets/test/generator_page.dart';
+import 'package:coctail_book/widgets/test/liked_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,34 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Coctail Book',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-        ),
-        home: MyHomePage(),
-      ),
+      child: MaterialApp.router(
+          routerConfig: router,
+          title: 'Coctail Book',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+          )),
     );
-  }
-}
-
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-  var favorites = <WordPair>[];
-
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
   }
 }
 
@@ -147,117 +130,4 @@ Widget build(BuildContext context) {
       ),
     ),
   );
-}
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: pair.asPascalCase,
-        ),
-      ),
-    );
-  }
-}
-
-class LikedWords extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var words = appState.favorites;
-    return SafeArea(
-      child: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('You have ${words.length} favorites',
-              style: Theme.of(context).textTheme.headlineMedium),
-          Expanded(child: ListOfWords(words: words))
-        ]),
-      ),
-    );
-  }
-}
-
-class ListOfWords extends StatelessWidget {
-  const ListOfWords({
-    super.key,
-    required this.words,
-  });
-
-  final List<WordPair> words;
-
-  @override
-  Widget build(BuildContext context) {
-    if (words.isEmpty) {
-      return Text('List is empty');
-    } else {
-      return ListView(
-        children: words
-            .map((e) => ListTile(
-                  title: Text(e.asCamelCase),
-                ))
-            .toList(),
-      );
-    }
-  }
 }
