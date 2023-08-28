@@ -5,6 +5,11 @@ import 'package:go_router/go_router.dart';
 class AppNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var route =
+        GoRouter.of(context).routerDelegate.currentConfiguration.fullPath;
+    // var theme = Theme.of(context);
+
+    print(route);
     return SafeArea(
       top: false,
       bottom: false,
@@ -18,18 +23,49 @@ class AppNavigation extends StatelessWidget {
               : Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton.icon(
-              icon: Icon(Icons.home),
-              label: Text('Home'),
-              onPressed: () => context.go('/'),
-            ),
-            ElevatedButton.icon(
-                icon: Icon(Icons.favorite),
-                label: Text('Favorite'),
-                onPressed: () => context.go('/likedWords')),
+            isActiveRouter(route, '/')
+                ? ElevatedButton.icon(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
+                    style: OutlinedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                    )),
+                    onPressed: () => context.go('/'),
+                  )
+                : TextButton.icon(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
+                    style: OutlinedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                    )),
+                    onPressed: () => context.go('/'),
+                  ),
+            isActiveRouter(route, '/likedWords')
+                ? ElevatedButton.icon(
+                    icon: Icon(Icons.favorite),
+                    label: Text('Favorite'),
+                    style: OutlinedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                    )),
+                    onPressed: () => context.go('/likedWords'))
+                : TextButton.icon(
+                    icon: Icon(Icons.favorite),
+                    label: Text('Favorite'),
+                    style: OutlinedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                    )),
+                    onPressed: () => context.go('/likedWords')),
           ],
         ),
       ),
     );
   }
+}
+
+bool isActiveRouter(String currentPath, String path) {
+  return currentPath == path;
 }
