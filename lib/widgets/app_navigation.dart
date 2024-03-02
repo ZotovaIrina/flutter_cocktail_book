@@ -7,9 +7,7 @@ class AppNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     var route =
         GoRouter.of(context).routerDelegate.currentConfiguration.fullPath;
-    // var theme = Theme.of(context);
 
-    print(route);
     return SafeArea(
       top: false,
       bottom: false,
@@ -23,46 +21,57 @@ class AppNavigation extends StatelessWidget {
               : Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            isActiveRouter(route, '/')
-                ? ElevatedButton.icon(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                    style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                    )),
-                    onPressed: () => context.go('/'),
-                  )
-                : TextButton.icon(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                    style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                    )),
-                    onPressed: () => context.go('/'),
-                  ),
-            isActiveRouter(route, '/likedWords')
-                ? ElevatedButton.icon(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorite'),
-                    style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                    )),
-                    onPressed: () => context.go('/likedWords'))
-                : TextButton.icon(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorite'),
-                    style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                    )),
-                    onPressed: () => context.go('/likedWords')),
+            NavigationButton(
+                buttonIcon: Icons.home,
+                buttonText: 'Home',
+                onButtonPress: () => context.go('/'),
+                isActive: isActiveRouter(route, '/')),
+            NavigationButton(
+                buttonIcon: Icons.favorite,
+                buttonText: 'Favorite',
+                onButtonPress: () => context.go('/likedWords'),
+                isActive: isActiveRouter(route, '/likedWords')),
           ],
         ),
       ),
     );
+  }
+}
+
+class NavigationButton extends StatelessWidget {
+  const NavigationButton({
+    super.key,
+    required this.buttonIcon,
+    required this.buttonText,
+    required this.isActive,
+    required this.onButtonPress,
+  });
+
+  final IconData buttonIcon;
+  final String buttonText;
+  final bool isActive;
+  final Function onButtonPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return isActive
+        ? ElevatedButton.icon(
+            icon: Icon(buttonIcon),
+            label: Text(buttonText),
+            style: OutlinedButton.styleFrom(
+                shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+            )),
+            onPressed: () => onButtonPress(),
+          )
+        : TextButton.icon(
+            icon: Icon(buttonIcon),
+            label: Text(buttonText),
+            style: OutlinedButton.styleFrom(
+                shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+            )),
+            onPressed: () => onButtonPress());
   }
 }
 

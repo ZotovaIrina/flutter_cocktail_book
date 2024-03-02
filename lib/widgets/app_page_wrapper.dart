@@ -28,6 +28,5 @@ class AppPageWrapper extends StatelessWidget {
             ),
           ]),
     );
-  
   }
 }
