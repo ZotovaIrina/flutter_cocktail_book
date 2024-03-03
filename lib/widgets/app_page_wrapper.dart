@@ -1,5 +1,5 @@
-import 'package:coctail_book/widgets/app_navigation.dart';
-import 'package:coctail_book/utilities/screen_size.dart';
+import 'package:cocktail_book/widgets/app_navigation.dart';
+import 'package:cocktail_book/utilities/screen_size.dart';
 import 'package:flutter/material.dart';
 
 class AppPageWrapper extends StatelessWidget {

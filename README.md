@@ -1,4 +1,4 @@
-# flutter_coctail_book
+# flutter_cocktail_book
 
 A new Flutter project.
 

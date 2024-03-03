@@ -1,4 +1,4 @@
-import 'package:coctail_book/api/ingredients.dart';
+import 'package:cocktail_book/api/ingredients.dart';
 
 class Ingridient {
   String name = '';

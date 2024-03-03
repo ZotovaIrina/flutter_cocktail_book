@@ -1,6 +1,6 @@
-import 'package:coctail_book/widgets/pages/create_ingredient.dart';
-import 'package:coctail_book/widgets/test/generator_page.dart';
-import 'package:coctail_book/widgets/test/liked_words.dart';
+import 'package:cocktail_book/widgets/pages/create_ingredient.dart';
+import 'package:cocktail_book/widgets/test/generator_page.dart';
+import 'package:cocktail_book/widgets/test/liked_words.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

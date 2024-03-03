@@ -1,5 +1,5 @@
-name: coctail_book
-description: Coctail book
+name: cocktail_book
+description: Cocktail book
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 

@@ -1,5 +1,5 @@
-import 'package:coctail_book/router.dart';
-import 'package:coctail_book/state/my_app_state.dart';
+import 'package:cocktail_book/router.dart';
+import 'package:cocktail_book/state/my_app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

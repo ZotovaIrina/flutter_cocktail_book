@@ -1,4 +1,4 @@
-import 'package:coctail_book/utilities/screen_size.dart';
+import 'package:cocktail_book/utilities/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

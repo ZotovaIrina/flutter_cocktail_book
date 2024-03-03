@@ -1,5 +1,5 @@
-import 'package:coctail_book/state/my_app_state.dart';
-import 'package:coctail_book/widgets/app_page_wrapper.dart';
+import 'package:cocktail_book/state/my_app_state.dart';
+import 'package:cocktail_book/widgets/app_page_wrapper.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
