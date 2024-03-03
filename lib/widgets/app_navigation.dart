@@ -1,4 +1,4 @@
-import 'package:coctail_book/widgets/screen_size.dart';
+import 'package:coctail_book/utilities/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,30 +8,38 @@ class AppNavigation extends StatelessWidget {
     var route =
         GoRouter.of(context).routerDelegate.currentConfiguration.fullPath;
 
-    return SafeArea(
-      top: false,
-      bottom: false,
-      right: false,
-      left: false,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 15, 0, 35),
-        child: Flex(
-          direction: getSize(context) == ScreenSize.mobile
-              ? Axis.vertical
-              : Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            NavigationButton(
-                buttonIcon: Icons.home,
-                buttonText: 'Home',
-                onButtonPress: () => context.go('/'),
-                isActive: isActiveRouter(route, '/')),
-            NavigationButton(
-                buttonIcon: Icons.favorite,
-                buttonText: 'Favorite',
-                onButtonPress: () => context.go('/likedWords'),
-                isActive: isActiveRouter(route, '/likedWords')),
-          ],
+    return Container(
+      color: Theme.of(context).colorScheme.primaryContainer,
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        right: false,
+        left: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 35),
+          child: Flex(
+            direction: getScreenSize(context).mobileOrTablet
+                ? Axis.horizontal
+                : Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              NavigationButton(
+                  buttonIcon: Icons.home,
+                  buttonText: 'Home',
+                  onButtonPress: () => context.go('/'),
+                  isActive: isActiveRouter(route, '/')),
+              NavigationButton(
+                  buttonIcon: Icons.favorite,
+                  buttonText: 'Favorite',
+                  onButtonPress: () => context.go('/likedWords'),
+                  isActive: isActiveRouter(route, '/likedWords')),
+              NavigationButton(
+                  buttonIcon: Icons.add_box,
+                  buttonText: 'Create Ingridient',
+                  onButtonPress: () => context.go('/createIngridient'),
+                  isActive: isActiveRouter(route, '/createIngridient')),
+            ],
+          ),
         ),
       ),
     );
