@@ -1,4 +1,3 @@
-import 'package:cocktail_book/api/ingredients.dart';
 import 'package:cocktail_book/widgets/app_page_wrapper.dart';
 import 'package:cocktail_book/widgets/ingredients/Ingredient.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class CreateIngredientForm extends StatefulWidget {
 
 class _CreateIngredientFormState extends State<CreateIngredientForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final ingredient = Ingridient('', '');
+  final ingredient = Ingredient('', '');
 
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp.router(
           routerConfig: router,
-          title: 'Coctail Book',
+          title: 'Cocktail Book',
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
