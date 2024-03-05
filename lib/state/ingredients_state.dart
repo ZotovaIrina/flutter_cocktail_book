@@ -3,23 +3,14 @@ import 'package:cocktail_book/widgets/ingredients/Ingredient.dart';
 import 'package:flutter/material.dart';
 
 class IngredientsState extends ChangeNotifier {
+  // List<Ingredient> listOfAllIngredients = [Ingredient('name1', 'description')];
   var listOfAllIngredients = <Ingredient>[];
 
   Future fetchData() async {
-    // if (listOfAllIngredients.isEmpty) {
-    final response = await getAllIngredients();
-    print('!!!!!!!!! $response');
-    // }
+    if (listOfAllIngredients.isEmpty) {
+      final response = await getAllIngredients();
+      listOfAllIngredients.addAll(List<Ingredient>.from(response));
+      notifyListeners();
+    }
   }
 }
-
-// Future<String> fetchData() async {
-//  if(value==null){
-//  try {
-//   final response =
-//       await http.get(url, headers: {'Authorization': 'Bearer $_token'});......
-//  value=(YourReturnedString)
-//   }
-//  }
-//   return value;
-//  }

@@ -15,8 +15,7 @@ Future<List<Ingredient>> getAllIngredients() async {
   final res = await http.get(
       Uri.parse('$baseUrlServer/ingredients/getAllIngredients'),
       headers: baseHeader);
-  final responseJson = json.decode(res.body) as List<Map<String, String>>;
-  print('HERE');
+  final responseJson = json.decode(res.body);
 
   if (res.statusCode == 200) {
     // If the server did return a 200 OK response,

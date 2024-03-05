@@ -1,6 +1,6 @@
 import 'package:cocktail_book/state/ingredients_state.dart';
 import 'package:cocktail_book/widgets/app_page_wrapper.dart';
-import 'package:english_words/english_words.dart';
+import 'package:cocktail_book/widgets/ingredients/Ingredient.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,41 +9,40 @@ class ListOfAllIngredients extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ingredients = context.watch<IngredientsState>();
+    var ingredientsState = context.watch<IngredientsState>();
+    ingredientsState.fetchData();
+    var listOfAllIngredients = ingredientsState.listOfAllIngredients;
 
-    ingredients.fetchData();
-
-    // var words = appState.favorites;
     return AppPageWrapper(
         page: SafeArea(
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('Ingredients',
               style: Theme.of(context).textTheme.headlineMedium),
-          Expanded(child: Text('Content'))
+          Expanded(child: ListOfIngredients(ingredients: listOfAllIngredients))
         ]),
       ),
     ));
   }
 }
 
-class ListOfWords extends StatelessWidget {
-  const ListOfWords({
+class ListOfIngredients extends StatelessWidget {
+  const ListOfIngredients({
     super.key,
-    required this.words,
+    required this.ingredients,
   });
 
-  final List<WordPair> words;
+  final List<Ingredient> ingredients;
 
   @override
   Widget build(BuildContext context) {
-    if (words.isEmpty) {
+    if (ingredients.isEmpty) {
       return Text('List is empty');
     } else {
       return ListView(
-        children: words
+        children: ingredients
             .map((e) => ListTile(
-                  title: Text(e.asCamelCase),
+                  title: Text(e.name),
                 ))
             .toList(),
       );
