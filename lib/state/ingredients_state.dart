@@ -1,5 +1,5 @@
 import 'package:cocktail_book/api/api_ingredients.dart';
-import 'package:cocktail_book/widgets/ingredients/Ingredient.dart';
+import 'package:cocktail_book/models/ingredient.dart';
 import 'package:flutter/material.dart';
 
 class IngredientsState extends ChangeNotifier {

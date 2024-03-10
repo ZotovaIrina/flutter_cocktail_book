@@ -1,17 +1,31 @@
+import 'package:cocktail_book/models/ingredient.dart';
 import 'package:cocktail_book/state/ingredients_state.dart';
 import 'package:cocktail_book/widgets/app_page_wrapper.dart';
-import 'package:cocktail_book/widgets/ingredients/Ingredient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-class ListOfAllIngredients extends StatelessWidget {
+class ListOfAllIngredients extends StatefulWidget {
   const ListOfAllIngredients({super.key});
 
   @override
+  State<ListOfAllIngredients> createState() => _ListOfAllIngredientsState();
+}
+
+class _ListOfAllIngredientsState extends State<ListOfAllIngredients> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final ingredientsState =
+          Provider.of<IngredientsState>(context, listen: false);
+      ingredientsState.fetchData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var ingredientsState = context.watch<IngredientsState>();
-    ingredientsState.fetchData();
-    var listOfAllIngredients = ingredientsState.listOfAllIngredients;
+    var ingredients = context.watch<IngredientsState>();
 
     return AppPageWrapper(
         page: SafeArea(
@@ -19,15 +33,17 @@ class ListOfAllIngredients extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('Ingredients',
               style: Theme.of(context).textTheme.headlineMedium),
-          Expanded(child: ListOfIngredients(ingredients: listOfAllIngredients))
+          Expanded(
+              child: ListOfIngredientsWidget(
+                  ingredients: ingredients.listOfAllIngredients))
         ]),
       ),
     ));
   }
 }
 
-class ListOfIngredients extends StatelessWidget {
-  const ListOfIngredients({
+class ListOfIngredientsWidget extends StatelessWidget {
+  const ListOfIngredientsWidget({
     super.key,
     required this.ingredients,
   });
